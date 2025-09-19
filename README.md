@@ -1,94 +1,82 @@
-# Calmly SignsEtu 🔕
+# Calmly SignsEtu
 
-A comprehensive quiet hours management application built with Next.js, featuring automated email reminders and user-friendly scheduling interface.
+> **Professional quiet hours management system with intelligent scheduling and automated notifications**
 
-## 🌟 Features
+A modern web application designed to optimize productivity through structured quiet time management. Built with Next.js and featuring real-time scheduling, automated email reminders, and comprehensive time zone support for Indian Standard Time.
 
-- **📅 Smart Scheduling**: Create and manage quiet hour blocks with intuitive date/time selection
-- **📧 Automated Reminders**: Get email notifications 10 minutes before your quiet hours begin
-- **🔐 Secure Authentication**: Integrated with Clerk for seamless user authentication
-- **🚫 Overlap Prevention**: Built-in database constraints prevent conflicting time blocks
-- **🕐 IST Support**: All times are handled in Indian Standard Time (IST)
-- **✨ Modern UI**: Clean, responsive interface built with shadcn/ui components
-- **⚡ Real-time Updates**: Instant feedback and updates using React state management
-- **🔄 CRUD Operations**: Full create, read, update, delete functionality for quiet hours
-- **📱 Mobile Responsive**: Works seamlessly on desktop and mobile devices
+[![Next.js](https://img.shields.io/badge/Next.js-14-black)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)](https://typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-CSS-38B2AC)](https://tailwindcss.com/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Neon-336791)](https://neon.tech/)
 
-## 🚀 Tech Stack
+## 🎯 Key Features
 
-- **Frontend**: Next.js 14, React 18, TypeScript
-- **Styling**: Tailwind CSS, shadcn/ui components
-- **Authentication**: Clerk
-- **Database**: PostgreSQL (Neon)
-- **Email Service**: Resend
-- **Deployment**: Vercel-ready
-- **Cron Jobs**: Built-in API routes for automated reminders
+- **Smart Scheduling** - Intuitive date/time selection with overlap prevention
+- **Automated Notifications** - Email reminders 10 minutes before scheduled sessions
+- **IST Time Zone Support** - All operations in Indian Standard Time (UTC+5:30)
+- **Secure Authentication** - Clerk-powered user management and session handling
+- **Real-time Updates** - Instant UI feedback with optimistic updates
+- **Mobile Responsive** - Seamless experience across all devices
+- **Professional UI** - Built with shadcn/ui components and Tailwind CSS
 
-## 📋 Prerequisites
+## � Technology Stack
 
-Before you begin, ensure you have the following installed:
+| Category | Technology |
+|----------|------------|
+| **Frontend** | Next.js 14, React 18, TypeScript |
+| **Styling** | Tailwind CSS, shadcn/ui |
+| **Authentication** | Clerk |
+| **Database** | PostgreSQL (Neon) |
+| **Email** | Resend API |
+| **Deployment** | Vercel |
 
-- Node.js (version 18 or higher)
-- npm or pnpm
+## 🚀 Quick Start
+
+### Prerequisites
+- Node.js 18+
 - Git
+- npm/pnpm
 
-## 🛠️ Installation & Setup
+### Installation
 
-### 1. Clone the Repository
+1. **Clone and setup**
+   ```bash
+   git clone https://github.com/Shubhkesarwani02/calmly-signsetu.git
+   cd calmly-signsetu
+   npm install --legacy-peer-deps
+   ```
 
-```bash
-git clone https://github.com/Shubhkesarwani02/calmly-signsetu.git
-cd calmly-signsetu
-```
+2. **Environment configuration**
+   
+   Create `.env.local` with your credentials:
+   ```env
+   # Database
+   DATABASE_URL=your_neon_database_url
+   
+   # Authentication
+   NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
+   CLERK_SECRET_KEY=your_clerk_secret_key
+   
+   # Email Service
+   RESEND_API_KEY=your_resend_api_key
+   ```
 
-### 2. Install Dependencies
+3. **Database setup & verification**
+   ```bash
+   npm run test-db
+   npm run final-check
+   ```
 
-```bash
-npm install --legacy-peer-deps
-# or
-pnpm install
-```
+4. **Start development**
+   ```bash
+   npm run dev
+   ```
+   
+   → Application available at `http://localhost:3000`
 
-### 3. Environment Configuration
+## � Core Architecture
 
-Create a `.env.local` file in the root directory with the following variables:
-
-```env
-# Database Configuration
-DATABASE_URL=your_neon_database_url
-POSTGRES_URL=your_postgres_url
-
-# Clerk Authentication
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
-CLERK_SECRET_KEY=your_clerk_secret_key
-
-# Email Service (Resend)
-RESEND_API_KEY=your_resend_api_key
-
-# Optional: Additional Neon configurations
-NEON_PROJECT_ID=your_neon_project_id
-```
-
-### 4. Database Setup
-
-The application will automatically create the required database schema. You can verify the connection:
-
-```bash
-npm run test-db
-```
-
-### 5. Start Development Server
-
-```bash
-npm run dev
-```
-
-The application will be available at `http://localhost:3000`
-
-## 🗄️ Database Schema
-
-The application uses a PostgreSQL database with the following main table:
-
+### Database Schema
 ```sql
 CREATE TABLE quiet_hours (
   id SERIAL PRIMARY KEY,
@@ -103,114 +91,89 @@ CREATE TABLE quiet_hours (
 );
 ```
 
-## 📧 Email Notifications
+### API Endpoints
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/api/quiet-hours` | Fetch user's scheduled blocks |
+| `POST` | `/api/quiet-hours` | Create new quiet hour block |
+| `PUT` | `/api/quiet-hours/[id]` | Update existing block |
+| `DELETE` | `/api/quiet-hours/[id]` | Remove block |
+| `POST` | `/api/cron/check-reminders` | Trigger reminder check |
+| `POST` | `/api/test-email` | Send test notification |
 
-The application sends automated email reminders using the Resend service:
+### Notification System
+- **Trigger**: 5-10 minutes before scheduled time
+- **Frequency**: Cron job every 5 minutes
+- **Format**: Professional HTML email templates
+- **Timezone**: All times displayed in IST (UTC+5:30)
 
-- **Timing**: Reminders are sent 10 minutes before the scheduled quiet hour
-- **Frequency**: Cron job runs every 5 minutes to check for upcoming sessions
-- **Content**: Professional HTML email templates with session details
-- **Timezone**: All times displayed in Indian Standard Time (IST)
+## ⚙️ Development
 
-## 🔐 Authentication
+### Available Scripts
+```bash
+npm run dev          # Development server
+npm run build        # Production build
+npm run start        # Production server
+npm run lint         # ESLint check
+npm run test-db      # Database connection test
+npm run test-ist     # Timezone functionality test
+npm run final-check  # Pre-deployment verification
+```
 
-User authentication is handled by Clerk, providing:
-
-- **Social Login**: Multiple authentication providers
-- **User Management**: Complete user profile management
-- **Session Management**: Secure session handling
-- **Authorization**: Protected routes and API endpoints
+### Testing & Verification
+- **Database**: `npm run test-db` - Verifies connection and schema
+- **Configuration**: `npm run final-check` - Complete environment check
+- **Timezone**: `npm run test-ist` - IST functionality validation
 
 ## 🚀 Deployment
 
-### Vercel Deployment
+### Production Deployment (Vercel)
+1. Push to GitHub repository
+2. Import project in Vercel dashboard
+3. Configure environment variables
+4. Auto-deploy on every commit to `main`
 
-1. Push your code to GitHub
-2. Connect your repository to Vercel
-3. Configure environment variables in Vercel dashboard
-4. Deploy automatically on every push to main branch
-
-### Environment Variables for Production
-
-Ensure all environment variables are properly configured in your deployment platform:
-
-- Database URLs (Neon PostgreSQL)
-- Clerk authentication keys
-- Resend API key for email service
-
-## 📚 API Endpoints
-
-### Quiet Hours Management
-- `GET /api/quiet-hours` - Fetch user's quiet hours
-- `POST /api/quiet-hours` - Create new quiet hour block
-- `PUT /api/quiet-hours/[id]` - Update existing quiet hour
-- `DELETE /api/quiet-hours/[id]` - Delete quiet hour block
-
-### Utilities
-- `POST /api/test-email` - Send test email
-- `POST /api/cron/check-reminders` - Manual trigger for reminder check
-
-## 🕐 Timezone Configuration
-
-The application is configured to work with Indian Standard Time (IST):
-
-- All timestamps are stored in UTC in the database
-- Frontend displays times in IST (UTC+5:30)
-- Email notifications show times in IST format
-- Cron jobs consider IST for reminder calculations
-
-## 🧪 Testing
-
-### Database Connection
-```bash
-npm run test-db
-```
-
-### Configuration Verification
-```bash
-npm run verify-config
-```
-
-### Manual Email Test
-Use the test email API endpoint to verify email functionality.
+### Environment Variables (Production)
+Ensure these are configured in your deployment platform:
+- `DATABASE_URL` - Neon PostgreSQL connection
+- `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` & `CLERK_SECRET_KEY` - Authentication
+- `RESEND_API_KEY` - Email notifications
 
 ## 🤝 Contributing
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+We welcome contributions! Please follow these steps:
 
-## 📝 License
+1. **Fork** the repository
+2. **Create** a feature branch (`git checkout -b feature/enhancement`)
+3. **Commit** changes (`git commit -m 'Add enhancement'`)
+4. **Push** to branch (`git push origin feature/enhancement`)
+5. **Open** a Pull Request
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+## � License
 
-## 🆘 Support
+This project is licensed under the **MIT License**. See [LICENSE](LICENSE) for details.
 
-If you encounter any issues or have questions:
+## 🔗 Links & Resources
 
-1. Check the [Issues](https://github.com/Shubhkesarwani02/calmly-signsetu/issues) page
-2. Create a new issue with detailed information
-3. Contact the maintainer
+- **Live Demo**: [Deploy to see live version]
+- **GitHub**: [Shubhkesarwani02/calmly-signsetu](https://github.com/Shubhkesarwani02/calmly-signsetu)
+- **Issues**: [Report bugs or request features](https://github.com/Shubhkesarwani02/calmly-signsetu/issues)
 
 ## 🙏 Acknowledgments
 
-- Built with [Next.js](https://nextjs.org/)
-- UI components from [shadcn/ui](https://ui.shadcn.com/)
-- Authentication by [Clerk](https://clerk.com/)
-- Database hosting by [Neon](https://neon.tech/)
-- Email service by [Resend](https://resend.com/)
-
-## 📊 Project Status
-
-- ✅ Core functionality complete
-- ✅ Authentication integrated
-- ✅ Database schema optimized
-- ✅ Email notifications working
-- ✅ IST timezone support
-- ✅ Production ready
+Built with modern technologies and services:
+- [Next.js](https://nextjs.org/) - React framework
+- [shadcn/ui](https://ui.shadcn.com/) - UI components
+- [Clerk](https://clerk.com/) - Authentication
+- [Neon](https://neon.tech/) - PostgreSQL hosting
+- [Resend](https://resend.com/) - Email delivery
 
 ---
 
-**Made with ❤️ for better time management and productivity**
+<div align="center">
+
+**Made with ❤️ for enhanced productivity and focus management**
+
+*Calmly SignsEtu - Where productivity meets tranquility*
+
+</div>

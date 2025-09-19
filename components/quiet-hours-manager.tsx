@@ -11,6 +11,7 @@ import { Label } from "@/components/ui/label"
 import { Clock, Plus, Trash2, Edit, LogOut } from "lucide-react"
 import { SignOutButton } from "@clerk/nextjs"
 import { useToast } from "@/hooks/use-toast"
+import { formatISTDateTime, utcToLocalDateTime } from "@/lib/timezone"
 
 interface QuietHour {
   id: number
@@ -105,8 +106,8 @@ export function QuietHoursManager() {
   const handleEdit = (quietHour: QuietHour) => {
     setFormData({
       title: quietHour.title,
-      start_time: new Date(quietHour.start_time).toISOString().slice(0, 16),
-      end_time: new Date(quietHour.end_time).toISOString().slice(0, 16),
+      start_time: utcToLocalDateTime(quietHour.start_time),
+      end_time: utcToLocalDateTime(quietHour.end_time),
       email: quietHour.email,
     })
     setEditingId(quietHour.id)
@@ -142,7 +143,7 @@ export function QuietHoursManager() {
   }
 
   const formatDateTime = (dateString: string) => {
-    return new Date(dateString).toLocaleString()
+    return formatISTDateTime(new Date(dateString))
   }
 
   if (isLoading) {
@@ -161,7 +162,7 @@ export function QuietHoursManager() {
       <header className="flex items-center justify-between mb-8">
         <div className="flex items-center gap-2">
           <Clock className="h-6 w-6 text-primary" />
-          <h1 className="text-2xl font-bold text-foreground">Quiet Hours Dashboard</h1>
+          <h1 className="text-2xl font-bold text-foreground">Calmly SignsEtu - Dashboard</h1>
         </div>
         <SignOutButton>
           <Button variant="outline" size="sm">
@@ -250,7 +251,7 @@ export function QuietHoursManager() {
                   </div>
 
                   <div>
-                    <Label htmlFor="start_time">Start Time</Label>
+                    <Label htmlFor="start_time">Start Time (IST)</Label>
                     <Input
                       id="start_time"
                       type="datetime-local"
@@ -261,7 +262,7 @@ export function QuietHoursManager() {
                   </div>
 
                   <div>
-                    <Label htmlFor="end_time">End Time</Label>
+                    <Label htmlFor="end_time">End Time (IST)</Label>
                     <Input
                       id="end_time"
                       type="datetime-local"

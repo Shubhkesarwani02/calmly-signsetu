@@ -8,8 +8,8 @@ import { Suspense } from "react"
 import "./globals.css"
 
 export const metadata: Metadata = {
-  title: "Quiet Hours Reminder",
-  description: "Schedule and manage your quiet hours with email reminders",
+  title: "Calmly SignsEtu - Quiet Hours Management",
+  description: "Schedule and manage your quiet hours with automated email reminders. Stay focused and productive with Calmly SignsEtu.",
   generator: "v0.app",
 }
 

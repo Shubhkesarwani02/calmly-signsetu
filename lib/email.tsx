@@ -16,7 +16,7 @@ export async function sendEmail({ to, subject, html }: EmailData) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: "Quiet Hours <noreply@resend.dev>",
+        from: "Calmly SignsEtu <noreply@resend.dev>",
         to: [to],
         subject,
         html,
@@ -40,14 +40,16 @@ export function generateReminderEmail(title: string, startTime: string, endTime:
   const endDate = new Date(endTime)
 
   const formatTime = (date: Date) => {
-    return date.toLocaleString("en-US", {
+    return date.toLocaleString("en-IN", {
+      timeZone: "Asia/Kolkata",
       weekday: "long",
       year: "numeric",
       month: "long",
       day: "numeric",
       hour: "2-digit",
       minute: "2-digit",
-    })
+      hour12: true
+    }) + " IST"
   }
 
   return `
@@ -55,7 +57,7 @@ export function generateReminderEmail(title: string, startTime: string, endTime:
     <html>
       <head>
         <meta charset="utf-8">
-        <title>Quiet Hours Reminder</title>
+        <title>Calmly SignsEtu - Quiet Hours Reminder</title>
         <style>
           body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; }
           .container { max-width: 600px; margin: 0 auto; padding: 20px; }
@@ -68,7 +70,7 @@ export function generateReminderEmail(title: string, startTime: string, endTime:
       <body>
         <div class="container">
           <div class="header">
-            <h1>🔕 Quiet Hours Reminder</h1>
+            <h1>🔕 Calmly SignsEtu - Quiet Hours Reminder</h1>
           </div>
           <div class="content">
             <p>Hello!</p>
@@ -91,7 +93,7 @@ export function generateReminderEmail(title: string, startTime: string, endTime:
             <p>Make the most of your quiet time!</p>
           </div>
           <div class="footer">
-            <p>Sent by Quiet Hours Reminder System</p>
+            <p>Sent by Calmly SignsEtu Reminder System</p>
           </div>
         </div>
       </body>

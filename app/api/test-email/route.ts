@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
 
     await sendEmail({
       to: email,
-      subject: "Test: Calmly SignsEtu - Quiet Hours Reminder",
+      subject: "Test: Calmly SignSetu - Quiet Hours Reminder",
       html: emailHtml,
     })
 

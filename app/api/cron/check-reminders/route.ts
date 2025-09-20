@@ -17,7 +17,7 @@ export async function GET() {
       AND notification_sent = false
     `
 
-    console.log(`[Calmly SignsEtu] Found ${upcomingQuietHours.length} quiet hours needing reminders at ${now.toISOString()}`)
+    console.log(`[Calmly SignSetu] Found ${upcomingQuietHours.length} quiet hours needing reminders at ${now.toISOString()}`)
 
     for (const quietHour of upcomingQuietHours) {
       try {
@@ -25,7 +25,7 @@ export async function GET() {
 
         await sendEmail({
           to: quietHour.email,
-          subject: `Calmly SignsEtu Reminder: ${quietHour.title} starts in 10 minutes`,
+          subject: `Calmly SignSetu Reminder: ${quietHour.title} starts in 10 minutes`,
           html: emailHtml,
         })
 
@@ -36,9 +36,9 @@ export async function GET() {
           WHERE id = ${quietHour.id}
         `
 
-        console.log(`[Calmly SignsEtu] Sent reminder for quiet hour: ${quietHour.title}`)
+        console.log(`[Calmly SignSetu] Sent reminder for quiet hour: ${quietHour.title}`)
       } catch (emailError) {
-        console.error(`[Calmly SignsEtu] Failed to send email for quiet hour ${quietHour.id}:`, emailError)
+        console.error(`[Calmly SignSetu] Failed to send email for quiet hour ${quietHour.id}:`, emailError)
         // Continue with other reminders even if one fails
       }
     }
@@ -48,7 +48,7 @@ export async function GET() {
       count: upcomingQuietHours.length,
     })
   } catch (error) {
-    console.error("[Calmly SignsEtu] Error in cron job:", error)
+    console.error("[Calmly SignSetu] Error in cron job:", error)
     return NextResponse.json({ error: "Failed to process reminders" }, { status: 500 })
   }
 }

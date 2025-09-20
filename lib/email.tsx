@@ -9,17 +9,16 @@ export async function sendEmail({ to, subject, html }: EmailData) {
   // For production, consider using services like Resend, SendGrid, or AWS SES
 
   try {
-    const response = await fetch("https://api.resend.com/emails", {
+    const response = await fetch("/api/send-email", {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: "Calmly SignsEtu <noreply@resend.dev>",
-        to: [to],
+        to,
         subject,
         html,
+        from: "Calmly SignSetu <noreply@resend.dev>",
       }),
     })
 
@@ -57,7 +56,7 @@ export function generateReminderEmail(title: string, startTime: string, endTime:
     <html>
       <head>
         <meta charset="utf-8">
-        <title>Calmly SignsEtu - Quiet Hours Reminder</title>
+        <title>Calmly SignSetu - Quiet Hours Reminder</title>
         <style>
           body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; }
           .container { max-width: 600px; margin: 0 auto; padding: 20px; }
@@ -70,7 +69,7 @@ export function generateReminderEmail(title: string, startTime: string, endTime:
       <body>
         <div class="container">
           <div class="header">
-            <h1>🔕 Calmly SignsEtu - Quiet Hours Reminder</h1>
+            <h1>🔕 Calmly SignSetu - Quiet Hours Reminder</h1>
           </div>
           <div class="content">
             <p>Hello!</p>
@@ -93,7 +92,7 @@ export function generateReminderEmail(title: string, startTime: string, endTime:
             <p>Make the most of your quiet time!</p>
           </div>
           <div class="footer">
-            <p>Sent by Calmly SignsEtu Reminder System</p>
+            <p>Sent by Calmly SignSetu Reminder System</p>
           </div>
         </div>
       </body>

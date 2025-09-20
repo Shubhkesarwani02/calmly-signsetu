@@ -1,4 +1,4 @@
-# Calmly SignsEtu
+# Calmly SignSetu
 
 > **Professional quiet hours management system with intelligent scheduling and automated notifications**
 
@@ -174,6 +174,6 @@ Built with modern technologies and services:
 
 **Made with ❤️ for enhanced productivity and focus management**
 
-*Calmly SignsEtu - Where productivity meets tranquility*
+*Calmly SignSetu - Where productivity meets tranquility*
 
 </div>
